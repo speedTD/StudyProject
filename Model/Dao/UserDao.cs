@@ -84,9 +84,13 @@ namespace Model.Dao
             return !user.status;
         }
 
-        public User getByid(String name)
+        public User getbyname(String name)
         {
             return db.Users.SingleOrDefault(x => x.name == name);
+        }
+        public User getByid(long id)
+        {
+            return db.Users.SingleOrDefault(x => x.id == id);
         }
         public IEnumerable<User> getAllByPageSize(int page, int pageSize)
         {

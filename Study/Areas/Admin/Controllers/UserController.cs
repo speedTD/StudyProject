@@ -12,11 +12,17 @@ namespace Study.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         // GET: Admin/User
-       
-        public ActionResult Index(int page=1,int pageSize=5)
+        [HttpGet]
+        public JsonResult GetByID(long id)
+        {
+            var result = new UserDao().getByid(id);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Index(int page = 1, int pageSize = 5)
         {
             var dao = new UserDao();
-            var list=  dao.getAllByPageSize(page, pageSize);
+            var list = dao.getAllByPageSize(page, pageSize);
             return View(list);
         }
 
@@ -26,8 +32,8 @@ namespace Study.Areas.Admin.Controllers
             var dao = new UserDao();
             var list = dao.getAllByPageSize(page, pageSize);
             //trả về list sau đó request bên Ajax
-            return Json(list,JsonRequestBehavior.AllowGet);       
-         }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         public ActionResult CreateUser()
@@ -49,7 +55,7 @@ namespace Study.Areas.Admin.Controllers
             {
                 var dao = new UserDao();
                 u.pass = Encrytor.MD5Hash(u.pass);
-                bool reuslt =dao.Update(u);
+                bool reuslt = dao.Update(u);
                 if (reuslt == true)
                 {
                     ModelState.AddModelError("", "Cap nhat Tài Khoản Thành Công");
@@ -57,8 +63,8 @@ namespace Study.Areas.Admin.Controllers
                 }
                 else
                 {
-                        ModelState.AddModelError("", "Cap nhat thất bại");
-                }       
+                    ModelState.AddModelError("", "Cap nhat thất bại");
+                }
             }
             return View("Index");
 
@@ -70,16 +76,16 @@ namespace Study.Areas.Admin.Controllers
         public JsonResult CreateUser(User user)
         {
             long id = 0l;
-           
-                var dao = new UserDao();
-                var session = (UserSession)Session[Constants.USER_SESSION];
-                //thêm xem ai tạo và ngày tạo
-                user.createby = session.UserName;
-                if (user.pass != null)
-                {
-                    user.pass = Encrytor.MD5Hash(user.pass);
-                }
-               id = dao.Insert(user);
+
+            var dao = new UserDao();
+            var session = (UserSession)Session[Constants.USER_SESSION];
+            //thêm xem ai tạo và ngày tạo
+            user.createby = session.UserName;
+            if (user.pass != null)
+            {
+                user.pass = Encrytor.MD5Hash(user.pass);
+            }
+            id = dao.Insert(user);
             return Json(id, JsonRequestBehavior.AllowGet);
         }
 
@@ -88,8 +94,8 @@ namespace Study.Areas.Admin.Controllers
         public JsonResult DeleteUser(int id)
         {
             var dao = new UserDao();
-            var result=dao.deleteByPk(id);
-            return Json(result,JsonRequestBehavior.AllowGet);
+            var result = dao.deleteByPk(id);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         //change Status
         [HttpPost]
@@ -97,8 +103,10 @@ namespace Study.Areas.Admin.Controllers
         {
             var result = new UserDao().changestatus(id);
             return Json(
-                new{status = result});
-             }
-
+                new { status = result });
         }
+
     }
+   
+
+}

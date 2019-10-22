@@ -26,7 +26,7 @@ namespace Study.Areas.Admin.Controllers
                 if (result)
                 {
                     //lấy dl ra từ csdln 
-                    var user = dao.getByid(model.Username);
+                    var user = dao.getbyname(model.Username);
                     var session = new UserSession();
                     session.UserName = user.name;
                     session.UserID = user.id;

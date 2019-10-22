@@ -2,11 +2,7 @@
 $(document).ready(function () {
     loadData();
 });
-/*  <a href="#" class="btn-active" data-id="@item.id">
-        @(item.status?"Kích hoạt":"Khóa")
-           item.status ? "Kích Hoạt" : "Khóa"
-    </a>
-*/
+
 function loadData() {
     $.ajax({
         url: "/Admin/User/listall",
@@ -63,7 +59,6 @@ function Add() {
         success: function (result) {
             // ẨN dialog và load lại data
             // đồng thời clear
-
             $('#myModal').modal('hide');
             loadData();          
         },
@@ -73,8 +68,65 @@ function Add() {
     });
 }
 
-function getbyID(id) {
+//Update  
+function Update() {
+    //validate
+    /* var res = validate();
+     if (res == false) {
+         return false;
+     }*/
+    var user = {
+        name: $('#name').val(),
+        fullname: $('#fullname').val(),
+        pass: $('#pass').val(),
+        address: $('#address').val(),
+        phone: $('#phone').val(),
+        status: $('#address').val(),
 
+    };
+    $.ajax({
+        url: "/Admin/User/UpdateUser",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            // ẨN dialog và load lại data
+            // đồng thời clear
+
+            $('#myModal').modal('hide');
+            loadData();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+
+
+function getbyID(EmpID) {
+    $.ajax({
+        url: "/Admin/User/GetByID/" + EmpID,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#name').val(result.name);
+            $('#fullname').val(result.fullname);
+            $('#pass').val(result.pass);
+            $('#address').val(result.address);
+            $('#phone').val(result.phone);
+            $('#status').val(result.status);
+            $('#myModal').modal('show');
+            $('#btnUpdate').show();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }
 function ChangeStatus(ids) { 
         $.ajax(
