@@ -17,6 +17,9 @@ namespace Model.EF
         [StringLength(100)]
         public string name { get; set; }
 
+        [StringLength(100)]
+        public string image { get; set; }
+
         public int? displayoder { get; set; }
 
         [StringLength(100)]

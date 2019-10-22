@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Model.EF.Content>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.despection)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.moreImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categoryid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wanarty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createby)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifeiddat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifeidby)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tophot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.viewcount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tag)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.despection)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.moreImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoryid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.detail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wanarty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createby)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifeiddat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifeidby)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tophot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.viewcount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tag)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -9,7 +9,7 @@ using PagedList;
 
 namespace Model.Dao
 {
-  public  class UserDao
+    public class UserDao
     {
         ShopDbContext db = null;
         public UserDao()
@@ -18,31 +18,93 @@ namespace Model.Dao
         }
         public long Insert(User user)
         {
-            db.Users.Add(user);
-            db.SaveChanges();
-            return user.id;
+            user.createdat = DateTime.Now;
+            if (checkDuplicateUser(user.name))
+            {
+                return -1;
+            }
+            else
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return user.id;
+            }
+
         }
-        public bool login(String name ,String pass)
+        public bool Update(User user)
+        {
+            try
+            {
+                // tìm theo 1 bản ghi khi đã lấy đc id
+                var u = db.Users.Find(user.id);
+                u.name = user.name;
+                u.pass = user.pass;
+                u.fullname = user.fullname;
+                u.phone = user.phone;
+                u.status = u.status;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+        public User ViewDetailUser(int id)
+        {
+            return db.Users.Find(id);
+        }
+        public bool checkDuplicateUser(String name)
+        {
+            var reuslt = db.Users.Count(x => x.name == name);
+            if (reuslt >= 1)
+                return true;
+            else
+                return false;
+        }
+        public bool login(String name, String pass)
         {
             var result = db.Users.Count(x => x.name == name && x.pass == pass);
             if (result > 0)
             {
-              return true;
-            }else
+                return true;
+            }
+            else
             {
                 return false;
             }
-            
+
+        }
+
+        public bool changestatus(long id)
+        {
+            var user = db.Users.Find(id);
+            user.status = !user.status;
+            db.SaveChanges();
+            return !user.status;
         }
 
         public User getByid(String name)
         {
             return db.Users.SingleOrDefault(x => x.name == name);
         }
-        public IEnumerable<User> getAll(int page,int pageSize)
+        public IEnumerable<User> getAllByPageSize(int page, int pageSize)
         {
-            return db.Users.ToPagedList(page,pageSize);
+            return db.Users.OrderByDescending(x => x.name).ToPagedList(page, pageSize);
         }
-
+        public bool deleteByPk(int id)
+        {
+            try
+            {
+                var user = db.Users.Remove(ViewDetailUser(id));
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+         
+        }
     }
 }
