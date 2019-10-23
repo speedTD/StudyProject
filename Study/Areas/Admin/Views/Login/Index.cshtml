@@ -28,7 +28,7 @@
         <div class="card card-login mx-auto mt-5">
             <div class="card-header">Login</div>
             <div class="card-body">
-               @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+               @using (Html.BeginForm("Login", "Login", FormMethod.Get))
                {
 
                   
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-
+    <script src="~/Areas/Admin/Js/Controller/LoginController.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="~/Assets/Admin/vendor/jquery/jquery.min.js"></script>
     <script src="~/Assets/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

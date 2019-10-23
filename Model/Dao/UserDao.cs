@@ -40,8 +40,9 @@ namespace Model.Dao
                 u.name = user.name;
                 u.pass = user.pass;
                 u.fullname = user.fullname;
+                u.address = user.address;
                 u.phone = user.phone;
-                u.status = u.status;
+                u.status = user.status;
                 db.SaveChanges();
             }
             catch (Exception ex)
@@ -87,6 +88,11 @@ namespace Model.Dao
         public User getbyname(String name)
         {
             return db.Users.SingleOrDefault(x => x.name == name);
+        }
+
+        public IEnumerable<User> getAll()
+        {
+            return db.Users.ToList();
         }
         public User getByid(long id)
         {

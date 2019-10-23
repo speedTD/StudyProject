@@ -21,5 +21,19 @@ namespace Study.Areas.Admin.Controllers
             }
             base.OnActionExecuting(filterContext); 
         }
+
+        //viết 1 base để alert thông báo cho người dùng 
+        protected void SetAlert(String message,String type)
+        {
+            TempData["AlertMessage"] = message;
+            switch (type)
+            {
+                case "success": TempData["AlertType"] = "alert-success"; break;
+                case "warning": TempData["AlertType"] = "alert-warning"; break;
+                case "error": TempData["AlertType"] = "alert-danger"; break;
+
+            }
+         
+        }
     }
 }

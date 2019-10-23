@@ -225,8 +225,11 @@
     <Compile Include="UserSession.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Js\Controller\LoginController.js" />
     <Content Include="Areas\Admin\Js\Controller\userController.js" />
     <Content Include="Areas\Admin\Js\Controller\UserControllers.js" />
+    <Content Include="Areas\Admin\Js\Plugin\AlertBoxCustom.js" />
+    <Content Include="Areas\Admin\Js\Plugin\jquery.twbsPagination.min.js" />
     <Content Include="Assets\Admin\index.html" />
     <Content Include="Assets\Admin\js\ckfinder\bin\Debug\CKFinder.dll" />
     <Content Include="Assets\Admin\js\ckfinder\bin\Debug\CKFinder.pdb" />

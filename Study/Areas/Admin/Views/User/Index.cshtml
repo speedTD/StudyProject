@@ -6,7 +6,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 @section jsfooter{
-  
+<script src="~/Areas/Admin/Js/Plugin/jquery.twbsPagination.min.js"></script>
 <script src="~/Areas/Admin/Js/Controller/UserControllers.js"></script>
 }
 
@@ -14,91 +14,113 @@
     Danh Sách Tài khoản
 }
 <!-- DataTables Example -->
+    <!--alert message-->
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="alertBox" class="alert @TempData["AlertType"] hide">
+        @TempData["AlertMessage"]
+    </div>
+}
 <div class="card mb-3">
     <div class="card-header">
-        <i class="fas fa-table"></i>
-        Data Table Example
+      
         <div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm mới</button><br /><br />
-
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModal">Thêm Mới Người dùng</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm mới</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Xuất Excel</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Nhập Excel</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label">Tên</label>
-                                    <input type="text" class="form-control" id="name">
+                </div>
+                   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" width="75%">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="myModal">Thêm Mới Người dùng</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <label for="name" class="col-form-label">Tên</label>
+                                                            <input type="text" class="form-control" id="name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="fullname" class="col-form-label">Tên đầy đủ</label>
+                                                            <input type="text" class="form-control" id="fullname">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <label for="pass" class="col-form-label">Mật khẩu</label>
+                                                            <input type="text" class="form-control" id="pass">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="phone" class="col-form-label">Số Điện Thoại</label>
+                                                            <input type="text" class="form-control" id="phone">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="address" class="col-form-label">Địa Chỉ</label>
+                                                <input type="text" class="form-control" id="address">
+                                            </div>
+                                            <!--droplist-->
+                                            <div class="form-group">
+                                                <label for="status" class="col-form-label">Trạng thái</label>
+                                                <select id="status" name="status" class="browser-default custom-select">
+                                                    <option selected>Chọn kích hoạt</option>
+                                                    <option value="1">Khóa</option>
+                                                    <option value="0">Hoạt động</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!--button add or update -->
+                                        <input type="hidden" name="iduser" id="iduser" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Cập nhật</button>
+                                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Thêm</button>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="fullname" class="col-form-label">Tên đầy đủ</label>
-                                    <input type="text" class="form-control" id="fullname">
-                                </div>
-                                <div class="form-group">
-                                    <label for="pass" class="col-form-label">Mật khẩu</label>
-                                    <input type="text" class="form-control" id="pass">
-                                </div>
-                                <div class="form-group">
-                                    <label for="address" class="col-form-label">Địa Chỉ</label>
-                                    <input type="text" class="form-control" id="address">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone" class="col-form-label">Số Điện Thoại</label>
-                                    <input type="text" class="form-control" id="phone">
-                                </div>
-                                <!--droplist-->
-                                <div class="form-group">
-                                    <label for="status" class="col-form-label">Trạng thái</label>
-                                    <select id="status" class="browser-default custom-select">
-                                        <option value="1" selected>Chọn kích hoạt</option>
-                                        <option value="1">Khóa</option>
-                                        <option value="0">Hoạt động</option>
-                                    </select>   
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <!--button add or update -->
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>  
-                           <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Thêm</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Tài Khoản</th>
+                                    <th>Tên Đầy Đủ</th>
+                                    <th>Địa Chỉ</th>
+                                    <th>Số Điện Thoại</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tạo Bởi</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                        <ul id="pagination-user" class="pagination-sm"></ul>
+                    </div>
+                </div>
+                <div class="card-footer small text-muted">@DateTime.Now</div>
             </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-
-                        <th>Tài Khoản</th>
-                        <th>Tên Đầy Đủ</th>
-                        <th>Địa Chỉ</th>
-                        <th>Số Điện Thoại</th>
-                        <th>Trạng thái</th>
-                        <th>Tạo Bởi</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-
-             <tbody  class="tbody">
-                   
-              </tbody>
-            </table>
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-        </div>
-    </div>
-    <div class="card-footer small text-muted">@DateTime.Now</div>
-</div>
 
 
 
