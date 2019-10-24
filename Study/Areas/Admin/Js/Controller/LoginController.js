@@ -2,7 +2,7 @@
 
 //check login
 function checkLogin() {
-
+    window.location.href="/Admin/"
     $.ajax({
         url: "/Admin/Login",
         typr: "GET",
@@ -16,7 +16,6 @@ function checkLogin() {
                 //thông báo Lỗi đăng nhập
                 alert("tài Khoản Mật khẩu không chính Xác");
             }
-           
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

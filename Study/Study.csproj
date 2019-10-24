@@ -211,6 +211,7 @@
     <Compile Include="Areas\Admin\Controllers\ContentController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
@@ -225,8 +226,9 @@
     <Compile Include="UserSession.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Js\Controller\CateGoryController.js" />
     <Content Include="Areas\Admin\Js\Controller\LoginController.js" />
-    <Content Include="Areas\Admin\Js\Controller\userController.js" />
+    <Content Include="Areas\Admin\Js\Controller\ProductControllers.js" />
     <Content Include="Areas\Admin\Js\Controller\UserControllers.js" />
     <Content Include="Areas\Admin\Js\Plugin\AlertBoxCustom.js" />
     <Content Include="Areas\Admin\Js\Plugin\jquery.twbsPagination.min.js" />
@@ -862,6 +864,7 @@
     <Content Include="Areas\Admin\Views\Shared\_slidebar.cshtml" />
     <Content Include="Areas\Admin\Views\Content\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Content\CreateContent.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

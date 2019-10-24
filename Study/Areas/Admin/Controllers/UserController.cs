@@ -22,14 +22,11 @@ namespace Study.Areas.Admin.Controllers
             result.pass = passEncrypt;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Index(int page = 1, int pageSize = 5)
+        public ActionResult Index()
         {
-            var dao = new UserDao();
-            var list = dao.getAllByPageSize(page, pageSize);
-            return View(list);
+            return View();
         }
-
+        
         [HttpGet]
         public JsonResult listall(int page = 1, int pageSize = 5)
         {
@@ -99,6 +96,7 @@ namespace Study.Areas.Admin.Controllers
             return Json(
                 new { status = result });
         }
+
 
     }
    

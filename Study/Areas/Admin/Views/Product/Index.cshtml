@@ -3,11 +3,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 @section header{
-    Quản lý Tiêu Đề
+    Quản Lý Sản Phẩm
 }
 @section jsfooter{
     <script src="~/Areas/Admin/Js/Plugin/jquery.twbsPagination.min.js"></script>
-    <script src="~/Areas/Admin/Js/Controller/CateGoryController.js"></script>
+<script src="~/Areas/Admin/Js/Controller/ProductControllers.js"></script>
+    =
 }
 <!-- DataTables Example -->
 <div class="card mb-3">
@@ -23,7 +24,7 @@
                 </div>
             </div>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" width="75%">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h6 class="modal-title" id="myModal">Thêm Mới Người dùng</h6>
@@ -40,9 +41,9 @@
                                                 <label for="name" class="col-form-label">Tên</label>
                                                 <input type="text" class="form-control" id="name">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="image" class="col-form-label">Hình Ảnh</label>
-                                                <input type="text" class="form-control" id="image">
+                                            <div class="col-sm">
+                                                <label for="despection" class="col-form-label">Mô Tả Ngắn</label>
+                                                <input type="text" class="form-control" id="despection">
                                             </div>
                                         </div>
                                     </div>
@@ -51,23 +52,69 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <label for="displayoder" class="col-form-label">Hiển thị thứ</label>
-                                                <input type="text" class="form-control" id="displayoder">
+                                                <label for="image" class="col-form-label">Hình ảnh</label>
+                                                <input type="text" class="form-control" id="image">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="seotitle" class="col-form-label">Tiêu Đề SEO</label>
-                                                <input type="text" class="form-control" id="seotitle">
+                                            <div class="col-sm">
+                                                <label for="moreImage" class="col-form-label">Thêm Hình</label>
+                                                <input type="text" class="form-control" id="moreImage">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="keyword" class="col-form-label">Mã Ngắn</label>
-                                    <input type="text" class="form-control" id="keyword">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <label for="price" class="col-form-label">Giá</label>
+                                                <input type="text" class="form-control" id="price">
+                                            </div>
+                                            <div class="col-sm">
+                                                <label for="quality" class="col-form-label">Chất lượng</label>
+                                                <input type="text" class="form-control" id="quality">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="showonhome" class="col-form-label">Hiển ThịTrang chủ</label>
-                                    <input type="text" class="form-control" id="showonhome">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <label for="newprice" class="col-form-label">Giá Mới</label>
+                                                <input type="text" class="form-control" id="newprice">
+                                            </div>
+                                            <div class="col-sm">
+                                                <label for="includevat" class="col-form-label">Áp Dụng VAT</label>
+                                                <select id="includevat" name="includevat" class="browser-default custom-select">
+                                                    <option selected>Lựa chọn một mục</option>
+                                                    <option value="1">Không</option>
+                                                    <option value="0">Có</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <label for="metatitle" class="col-form-label">Tiêu đề </label>
+                                                <input type="text" class="form-control" id="metatitle">
+                                            </div>
+                                            <div class="col-sm">
+                                                <label for="categoryid" class="col-form-label">Thể Loại</label>
+                                                <select id="categoryid" name="categoryid" class="browser-default custom-select">
+                                                    <option value="0" selected>Lựa chọn một mục</option>
+                     
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="detail" class="col-form-label">Mô Tả</label>
+                                    <input type="text" class="form-control" id="detail">
                                 </div>
                                 <!--droplist-->
                                 <div class="form-group">
@@ -82,7 +129,7 @@
                         </div>
                         <div class="modal-footer">
                             <!--button add or update -->
-                            <input type="hidden" name="idcategory" id="idcategory" />
+                            <input type="hidden" name="idproduct" id="idproduct" />
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ClearForm()">Close</button>
                             <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Cập nhật</button>
                             <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Thêm</button>
@@ -98,16 +145,19 @@
                 <thead>
                     <tr>
                         <th>Tên</th>
-                        <th>Tiêu Đề Seo</th>
-                        <th>Mã Ngắn</th>
+                        <th>Giá</th>
+                        <th>Unknown</th>
+                        <th>Thể Loại</th>
                         <th>Trạng thái</th>
-                        <th>Hiển Thị thứ</th>
+                        <th>Giá Mới</th>
+                        <th>Áp Dụng VAT</th>
+                        <th>Tổng Lượt Xem</th>
                         <th>###</th>
                     </tr>
                 </thead>
                 <tbody class="tbody"></tbody>
             </table>
-            <ul id="pagination-category" class="pagination-sm"></ul>
+            <ul id="pagination-product" class="pagination-sm"></ul>
         </div>
     </div>
     <div class="card-footer small text-muted">@DateTime.Now</div>

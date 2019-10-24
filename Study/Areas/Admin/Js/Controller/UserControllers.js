@@ -25,7 +25,7 @@ function loadData() {
             $.each(result.data, function (key, item) {
                 var status = item.status ? "Hoạt động" : "Khóa";
                 var Createby = item.createby == null ? "" : item.createby;
-
+                //call function tra ve ten tuong ung voi categoryid 
                 html += '<tr>';
                 html += '<td>' + item.name + '</td>';
                 html += '<td>' + item.fullname + '</td>';
@@ -167,6 +167,7 @@ function getbyID(EmpID) {
     });
     return false;
 }
+
 
 function ClearData() {
     $('#iduser').val(null);

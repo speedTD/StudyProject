@@ -60,9 +60,7 @@ namespace Model.EF
                 .Property(e => e.price)
                 .HasPrecision(18, 0);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.categoryid)
-                .IsFixedLength();
+          
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.code)

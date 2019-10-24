@@ -17,7 +17,7 @@ namespace Study.Areas.Admin.Controllers
             return View();
         }
 
-        /* public ActionResult Login(LoginModel model)
+         public ActionResult Login(LoginModel model)
          {
              if (ModelState.IsValid)
              {
@@ -42,8 +42,8 @@ namespace Study.Areas.Admin.Controllers
 
 
              return RedirectToAction("Index", "Login");
-         }*/
-         [HttpGet]
+         }
+    /*     [HttpGet]
         public JsonResult Login(LoginModel model)
          {
             
@@ -65,7 +65,7 @@ namespace Study.Areas.Admin.Controllers
                      
                  }
              
-            return Json(new { result, Url = "/Admin/" }, JsonRequestBehavior.AllowGet);
-        }
+            return Json(new { result,Url="/Admin/"}, JsonRequestBehavior.AllowGet);
+        }*/
     }
 }

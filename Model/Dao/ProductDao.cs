@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 
 namespace Model.Dao
 {
-   public class CategoryDao
+   public class ProductDao
     {
+
         ShopDbContext db = null;
-        public CategoryDao()
+        public ProductDao()
         {
             db = new ShopDbContext();
         }
-        public long Insert(Category enity)
+        public long Insert(Product enity)
         {
             try
             {
                 enity.createdat = DateTime.Now;
-                db.Categories.Add(enity);
+                db.Products.Add(enity);
                 db.SaveChanges();
                 return enity.id;
             }
@@ -29,64 +30,69 @@ namespace Model.Dao
                 return -1;
             }
         }
-        public long Update(Category enity)
+        public long Update(Product enity)
         {
             try
             {
                 enity.modifeiddat = DateTime.Now;
-                var cate = db.Categories.Find(enity.id);
+                var cate = db.Products.Find(enity.id);
                 cate.name = enity.name;
                 cate.image = enity.image;
-                cate.keyword = enity.keyword;
+                cate.despection = enity.despection;
                 cate.modifeiddat = enity.modifeiddat;
                 cate.modifeidby = enity.modifeidby;
-                cate.seotitle = enity.seotitle;
+                cate.detail = enity.detail;
                 cate.status = enity.status;
-                cate.showonhome = enity.showonhome;
+                cate.includevat = enity.includevat;
+                cate.price = enity.price;
+                cate.quality = enity.quality;
+                cate.viewcount = enity.viewcount;
+                cate.wanarty = enity.wanarty;
+                cate.newprice = enity.newprice;
+                cate.Tophot = enity.Tophot;
+                cate.categoryid = enity.categoryid;
                 db.SaveChanges();
                 return enity.id;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return -1;
             }
-        
+
         }
         public bool Delete(long id)
         {
             try
             {
-                db.Categories.Remove(db.Categories.Find(id));
+                db.Products.Remove(db.Products.Find(id));
                 db.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
- 
+
         }
-        public List<Category> getAll()
+        public List<Product> getAll()
         {
-             //return db.Categories.Where(x=>x.status==true).ToList();
-            return db.Categories.ToList();
+            //return db.Categories.Where(x=>x.status==true).ToList();
+            return db.Products.ToList();
         }
-        public IEnumerable<Category> getAllByPageSize(int page, int pageSize)
+        public IEnumerable<Product> getAllByPageSize(int page, int pageSize)
         {
-            return db.Categories.OrderByDescending(x => x.name).ToPagedList(page, pageSize);
+            return db.Products.OrderByDescending(x => x.name).ToPagedList(page, pageSize);
         }
         public bool changestatus(long id)
         {
-            var cate = db.Categories.Find(id);
+            var cate = db.Products.Find(id);
             cate.status = !cate.status;
             db.SaveChanges();
             return !cate.status;
         }
-        public Category getByid(long id)
+        public Product getByid(long id)
         {
-            return db.Categories.SingleOrDefault(x => x.id == id);
+            return db.Products.SingleOrDefault(x => x.id == id);
         }
-
-
     }
 }

@@ -30,8 +30,8 @@ namespace Model.EF
         [StringLength(100)]
         public string metatitle { get; set; }
 
-        [StringLength(10)]
-        public string categoryid { get; set; }
+        
+        public int categoryid { get; set; }
 
         [Column(TypeName = "ntext")]
         public string detail { get; set; }
@@ -51,7 +51,7 @@ namespace Model.EF
         [StringLength(100)]
         public string modifeidby { get; set; }
 
-        public int? status { get; set; }
+        public bool status { get; set; }
 
         public DateTime? Tophot { get; set; }
 

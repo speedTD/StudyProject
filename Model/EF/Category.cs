@@ -9,7 +9,7 @@ namespace Model.EF
     [Table("Category")]
     public partial class Category
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public long id { get; set; }
 
         public long? preceId { get; set; }
@@ -38,7 +38,7 @@ namespace Model.EF
         [StringLength(100)]
         public string modifeidby { get; set; }
 
-        public bool? status { get; set; }
+        public bool status { get; set; }
 
         [StringLength(10)]
         public string showonhome { get; set; }
