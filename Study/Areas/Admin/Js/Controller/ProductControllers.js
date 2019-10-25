@@ -21,12 +21,18 @@ function loadData() {
         success: function (result) {
             var html = '';
             $.each(result.data, function (key, item) {
-                var status = item.status ? "Hoạt động" : "Khóa";         
+                var status = item.status ? "Hoạt động" : "Khóa";
+                var x = "";
+                bindCategoryByid(item.categoryid).then(function (result) {
+                    // here you can use the result of promiseB
+                    console.log(result);
+                  
+                });
                 html += '<tr>';
                 html += '<td>' + item.name + '</td>';
                 html += '<td>' + item.price + '</td>';
                 html += '<td>' + item.wanarty + '</td>';
-                html += '<td>' + bindCategoryByid(item.categoryid) + '</td>'; //đợi tý cái này sẽ lấy từ table khác
+                html += '<td>' + item.Category.name+ '</td>'; //đợi tý cái này sẽ lấy từ table khác
                 html += '<td><a href="#" id="btn-active" onclick="return ChangeStatus(' + item.id + ')">' + status + '</a></td>';
                 html += '<td>' + item.newprice + '</td>';
                 html += '<td>' + item.includevat + '</td>';
@@ -57,7 +63,6 @@ function pagging(totalrow, callback) {
         }
     });
 }
-
 
 function getbyID(EmpID) {
     $.ajax({
@@ -212,19 +217,22 @@ function bindCategory() {
     });
 }
 function bindCategoryByid(id) {
-    return
+    var deferred = $.Deferred();
+    return new Promise(function (resolve, reject) {
+
         $.ajax({
             type: "GET",
             url: "/Admin/Product/BindNameByIdCateGoryId/"+id,
             dataType: "json",
             async: false,
             contentType: "application/json;charset=UTF-8",
-            success: function (v) {
-                
-
+            success: function (v) {   
+                deferred.resolve(v);
             }
 
         });
+        return deferred.promise();
+    });
        
 }
 

@@ -31,7 +31,7 @@ namespace Model.EF
         public string metatitle { get; set; }
 
         
-        public int categoryid { get; set; }
+        public long categoryid { get; set; }
 
         [Column(TypeName = "ntext")]
         public string detail { get; set; }
@@ -60,5 +60,7 @@ namespace Model.EF
         public bool? includevat { get; set; }
 
         public long? viewcount { get; set; }
+        [ForeignKey("categoryid")]
+        public virtual Category Category { set; get;}
     }
 }

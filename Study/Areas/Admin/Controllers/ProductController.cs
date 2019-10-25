@@ -80,6 +80,5 @@ namespace Study.Areas.Admin.Controllers
             var result = new CategoryDao().getByid(id);
             return Json(result.name, JsonRequestBehavior.AllowGet);
         }
-
     }
 }
