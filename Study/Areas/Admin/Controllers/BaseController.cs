@@ -21,7 +21,6 @@ namespace Study.Areas.Admin.Controllers
             }
             base.OnActionExecuting(filterContext); 
         }
-
         //viết 1 base để alert thông báo cho người dùng 
         protected void SetAlert(String message,String type)
         {

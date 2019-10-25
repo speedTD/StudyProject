@@ -52,8 +52,12 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <label for="image" class="col-form-label">Hình ảnh</label>
-                                                <input type="text" class="form-control" id="image">
+                                                <label for="image"  class="col-form-label">Hình ảnh</label>
+                                                <input type="text"  class="form-control" id="image">
+                                                <label for="myFile" class="col-form-label">
+                                                    <span class="label label-success">Chọn file</span>
+                                                </label>
+                                                <input type="file"  style="display:none;" name="file_upload"  id="myFile">                       
                                             </div>
                                             <div class="col-sm">
                                                 <label for="moreImage" class="col-form-label">Thêm Hình</label>
@@ -84,8 +88,8 @@
                                                 <input type="text" class="form-control" id="newprice">
                                             </div>
                                             <div class="col-sm">
-                                                <label for="includevat" class="col-form-label">Áp Dụng VAT</label>
-                                                <select id="includevat" name="includevat" class="browser-default custom-select">
+                                                <label for="vat" class="col-form-label">Áp Dụng VAT</label>
+                                                <select id="vat" name="vat" class="browser-default custom-select">
                                                     <option selected>Lựa chọn một mục</option>
                                                     <option value="1">Không</option>
                                                     <option value="0">Có</option>

@@ -22,26 +22,22 @@ function loadData() {
             var html = '';
             $.each(result.data, function (key, item) {
                 var status = item.status ? "Hoạt động" : "Khóa";
-                var x = "";
-                bindCategoryByid(item.categoryid).then(function (result) {
-                    // here you can use the result of promiseB
-                    console.log(result);
-                  
-                });
+                var Vat = item.includevat ? "Có" : "Không";
                 html += '<tr>';
                 html += '<td>' + item.name + '</td>';
-                html += '<td>' + item.price + '</td>';
+                html += '<td  class="price">' + item.price + '</td>';
                 html += '<td>' + item.wanarty + '</td>';
                 html += '<td>' + item.Category.name+ '</td>'; //đợi tý cái này sẽ lấy từ table khác
                 html += '<td><a href="#" id="btn-active" onclick="return ChangeStatus(' + item.id + ')">' + status + '</a></td>';
                 html += '<td>' + item.newprice + '</td>';
-                html += '<td>' + item.includevat + '</td>';
+                html += '<td>' + Vat+ '</td>';
                 html += '<td>' + item.viewcount + '</td>';
                 html += '<td><a href="#" onclick="return getbyID(' + item.id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.id + ')">Delete</a></td>';
                 html += '</tr>';
             });
 
             $('.tbody').html(html);
+            total();
             pagging(result.total, function () {
                 loadData();
             })
@@ -52,7 +48,6 @@ function loadData() {
     });
 }
 function pagging(totalrow, callback) {
-
     var totalpage = Math.ceil(totalrow / config.PageSize);
     $('#pagination-product').twbsPagination({
         totalPages: totalpage,
@@ -71,7 +66,7 @@ function getbyID(EmpID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            var statu = result.status ? 0 : 1           
+            var statu = result.status ? 0 : 1
             $('#idproduct').val(result.id);
             $('#name').val(result.name);
             $('#despection').val(result.despection);
@@ -79,7 +74,7 @@ function getbyID(EmpID) {
             $('#moreImage').val(result.moreImage);
             $('#price').val(result.price);
             $('#quality').val(result.quality);
-            $('#includevat').val(result.includevat);
+            $('#vat').val(result.includevat ? 0 : 1);
             $('#metatitle').val(result.metatitle);
             $('#categoryid').val(result.categoryid);
             $('#detail').val(result.detail);
@@ -107,14 +102,18 @@ function Add() {
         price: $('#price').val(),
         quality: $('#quality').val(),
         newprice: $('#newprice').val(),
-        includevat: $('#includevat').val(),
+        includevat: $('#vat').val(),
         metatitle: $('#metatitle').val(),
         categoryid: $('#categoryid').val(),
         detail: $('#detail').val(),
         status: $('#status').val()
     }
-
-
+    if (obj.includevat == 1) {
+        obj.includevat = false;
+    } else {
+        obj.includevat = true;
+    }
+    UploadImage();
     $.ajax({
         url: "/Admin/Product/CreateProduct",
         data: JSON.stringify(obj),
@@ -124,9 +123,8 @@ function Add() {
         success: function (Reposne) {
             //load data   
             $('#myModal').modal('hide');
-         //   ClearForm();
+            //ClearForm();
             loadData();
-
             //clear form
         },
         error: function (errormessage) {
@@ -152,7 +150,7 @@ function Update() {
         price: $('#price').val(),
         quality: $('#quality').val(),
         status: $('#status').val(),
-        includevat: $('#includevat').val(),
+        includevat: $('#vat').val(),
         metatitle: $('#metatitle').val(),
         categoryid: $('#categoryid').val(),
         detail: $('#detail').val(),
@@ -165,7 +163,11 @@ function Update() {
     } else {
         obj.status = true;
     }
-
+    if (obj.includevat == 1) {
+        obj.includevat = false;
+    } else {
+        obj.includevat = true;
+    }
     $.ajax({
         url: "/Admin/Product/UpdateProduct",
         data: JSON.stringify(obj),
@@ -201,6 +203,60 @@ function Delele(ID) {
         });
     }
 }
+function ChangeStatus(ids) {
+    $.ajax(
+        {
+            url: "/Admin/Product/ChangeStatus",
+            data: { id: ids },
+            type: "POST",
+            dataType: "json",
+            success: function (repone) {
+                console.log(repone);
+                if (repone.status == true) {
+                    //kích hoạt
+                    loadData();
+                } else {
+                    //hủy kích hoạt 
+                    loadData();
+                }
+            }
+        });
+
+}
+function UploadImage() {
+
+    var files = $("#myFile").get(0).files;
+        //var myID = 3; //uncomment this to make sure the ajax URL works
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Product/UploadImage",
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        $('#image').val(result.name);
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        var err = "Error " + " " + status + " " + p3 + " " + p4;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        console.log(err);
+                    }
+                });
+            } else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        }
+
+
+}
 
 function bindCategory() {
     $.ajax({
@@ -233,7 +289,22 @@ function bindCategoryByid(id) {
         });
         return deferred.promise();
     });
+
+    
        
+}
+function total() {
+    var priceCells = document.getElementsByClassName("price"); //returns a list with all the elements that have class 'priceCell'
+
+    var total = 0;
+
+    //loop over the cells array and add to total price 
+    for (var i = 0; i < priceCells.length; i++) {
+        var thisPrice = parseFloat(priceCells[i].innerHTML); //get inner text of this cell in number format
+        total = total + thisPrice;
+    };
+    total = total.toFixed(2); //give 2 decimal points to total - prices are, e.g 59.80 not 59.8
+    console.log(total);
 }
 
 

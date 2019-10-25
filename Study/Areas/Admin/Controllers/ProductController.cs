@@ -2,13 +2,14 @@
 using Model.EF;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Study.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Admin/Product
         public ActionResult Index()
@@ -79,6 +80,21 @@ namespace Study.Areas.Admin.Controllers
         {
             var result = new CategoryDao().getByid(id);
             return Json(result.name, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult UploadImage(Product model)
+        {
+            var file = model.ImageUpload;
+            if (file != null)
+            {
+
+                var fileName = Path.GetFileName(file.FileName);
+                var extention = Path.GetExtension(file.FileName);
+                var filenamewithoutextension = Path.GetFileNameWithoutExtension(file.FileName);
+                file.SaveAs(Server.MapPath("/Data/" + file.FileName));
+
+            }
+          return Json(file.FileName, JsonRequestBehavior.AllowGet);
         }
     }
 }

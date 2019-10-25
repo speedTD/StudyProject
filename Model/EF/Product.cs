@@ -5,6 +5,7 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web;
 
     [Table("Product")]
     public partial class Product
@@ -28,7 +29,7 @@ namespace Model.EF
         public int? quality { get; set; }
 
         [StringLength(100)]
-        public string metatitle { get; set; }
+        public string  metatitle { get; set; }
 
         
         public long categoryid { get; set; }
@@ -62,5 +63,9 @@ namespace Model.EF
         public long? viewcount { get; set; }
         [ForeignKey("categoryid")]
         public virtual Category Category { set; get;}
+
+
+        [NotMapped]
+        public HttpPostedFileBase ImageUpload { get; set; }
     }
 }
