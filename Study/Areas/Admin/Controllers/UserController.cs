@@ -96,9 +96,5 @@ namespace Study.Areas.Admin.Controllers
             return Json(
                 new { status = result });
         }
-
-
     }
-   
-
 }

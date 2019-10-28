@@ -7,8 +7,9 @@
 }
 @section jsfooter{
     <script src="~/Areas/Admin/Js/Plugin/jquery.twbsPagination.min.js"></script>
-<script src="~/Areas/Admin/Js/Controller/ProductControllers.js"></script>
-    =
+
+<script src="~/Areas/Admin/Js/Controller/ProductController.js"></script>
+    
 }
 <!-- DataTables Example -->
 <div class="card mb-3">
@@ -48,24 +49,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <label for="image"  class="col-form-label">Hình ảnh</label>
-                                                <input type="text"  class="form-control" id="image">
-                                                <label for="myFile" class="col-form-label">
-                                                    <span class="label label-success">Chọn file</span>
-                                                </label>
-                                                <input type="file"  style="display:none;" name="file_upload"  id="myFile">                       
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="moreImage" class="col-form-label">Thêm Hình</label>
-                                                <input type="text" class="form-control" id="moreImage">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                           
+                               
+                                
                                 <div class="form-group">
                                     <div class="container">
                                         <div class="row">
@@ -130,6 +116,31 @@
                                     </select>
                                 </div>
                             </form>
+                        </div>
+                        <div class="form-group">
+                            <div class="container">
+                                <div class="row">
+                                     <!--Hinh anh dai dien -->
+                                    <div class="col-md-6">
+                                        <label for="image" class="col-form-label">Hình ảnh</label>
+                                        <input type="text" class="form-control" id="image">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="myFile">
+                                                <label class="custom-file-label" for="myFile">Choose file</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button   onclick="UploadImage()" class="btn btn-danger" type="button">Upload</button>
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                        <!--Hinh anh Chi tiet nnnn -->
+                                        <div class="col-md -6">
+                                            <label for="moreImage" class="col-form-label">Thêm Hình</label>
+                                            <input type="text" class="form-control" id="moreImage">
+                                        </div>
+                                    </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <!--button add or update -->

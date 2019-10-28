@@ -85,16 +85,18 @@ namespace Study.Areas.Admin.Controllers
         public JsonResult UploadImage(Product model)
         {
             var file = model.ImageUpload;
+            String url = "";
             if (file != null)
             {
 
                 var fileName = Path.GetFileName(file.FileName);
                 var extention = Path.GetExtension(file.FileName);
                 var filenamewithoutextension = Path.GetFileNameWithoutExtension(file.FileName);
+                url = "/Data/" + file.FileName;
                 file.SaveAs(Server.MapPath("/Data/" + file.FileName));
 
             }
-          return Json(file.FileName, JsonRequestBehavior.AllowGet);
+          return Json(url, JsonRequestBehavior.AllowGet);
         }
     }
 }

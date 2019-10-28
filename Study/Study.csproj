@@ -228,7 +228,7 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Js\Controller\CateGoryController.js" />
     <Content Include="Areas\Admin\Js\Controller\LoginController.js" />
-    <Content Include="Areas\Admin\Js\Controller\ProductControllers.js" />
+    <Content Include="Areas\Admin\Js\Controller\ProductController.js" />
     <Content Include="Areas\Admin\Js\Controller\UserControllers.js" />
     <Content Include="Areas\Admin\Js\Plugin\AlertBoxCustom.js" />
     <Content Include="Areas\Admin\Js\Plugin\jquery.twbsPagination.min.js" />
