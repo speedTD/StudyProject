@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+}
+@section header{
+    Quản Lý Sản Phẩm / Chỉnh Sửa.
+}
+@section jsfooter{
+    <script src="~/Areas/Admin/Js/Plugin/jquery.twbsPagination.min.js"></script>
+    <script src="~/Areas/Admin/Js/Controller/ProductController.js"></script>
+
+}
+<div class="box-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <!--button add or update -->
+                <input type="hidden" name="idproduct" id="idproduct" />
+                <a type="button" id="btnclear" href="/Admin/Product/Index" class="btn btn-info" onclick="ClearForm()">Danh Sách</a>
+                <a type="button" href="#" class="btn btn-info" id="btnUpdate" onclick="return Update();">Cập nhật</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="box-body">
+    <style>
+        #fileDisplayArea {
+            margin-top: 2em;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        #viewImages {
+            margin-top: 2em;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        #btnUpdate {
+            margin-bottom: 2em;
+            width: 80%;
+            overflow-x: auto;
+        }
+
+        #btnAdd {
+            margin-bottom: 2em;
+            width: 80%;
+            overflow-x: auto;
+        }
+
+        #btnclear {
+            margin-bottom: 2em;
+            width: 80%;
+            overflow-x: auto;
+        }
+    </style>
+    <form>
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="name" class="col-form-label">Tên</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="col-sm">
+                        <label for="despection" class="col-form-label">Mô Tả Ngắn</label>
+                        <input type="text" class="form-control" id="despection">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="price" class="col-form-label">Giá</label>
+                        <input type="text" class="form-control sm" id="price">
+                    </div>
+                    <div class="col-sm">
+                        <label for="quality" class="col-form-label">Chất lượng</label>
+                        <input type="text" class="form-control sm" id="quality">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="newprice" class="col-form-label">Giá Mới</label>
+                        <input type="text" class="form-control" id="newprice">
+                    </div>
+                    <div class="col-sm">
+                        <label for="vat" class="col-form-label">Áp Dụng VAT</label>
+                        <select id="vat" name="vat" class="browser-default custom-select">
+                            <option selected>Lựa chọn một mục</option>
+                            <option value="1">Không</option>
+                            <option value="0">Có</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="metatitle" class="col-form-label">Tiêu đề </label>
+                        <input type="text" class="form-control" id="metatitle">
+                    </div>
+                    <div class="col-sm">
+                        <label for="categoryid" class="col-form-label">Thể Loại</label>
+                        <select id="categoryid" name="categoryid" class="browser-default custom-select">
+                            <option value="0" selected>Lựa chọn một mục</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="detail" class="col-form-label">Mô Tả</label>
+                        <input type="text" class="form-control" id="detail">
+                    </div>
+                    <div class="col-sm">
+                        <label for="status" class="col-form-label">Trạng thái</label>
+                        <select id="status" name="status" class="browser-default custom-select">
+                            <option selected>Chọn kích hoạt</option>
+                            <option value="1">Khóa</option>
+                            <option value="0">Hoạt động</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="text" style="display: none;" name="image" id="image" />
+                        <label for="image" class="col-form-label">Hình ảnh</label>
+                        <input type="file" accept=".pdf, .jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" class="form-control" id="imagesigle">
+                        <div id="fileDisplayArea"></div>
+                    </div>
+
+                    <div class="col-sm -6">
+                        <label for="imagemutil" class="col-form-label">thêm hình ảnh</label>
+                        <input multiple="multiple" accept=".pdf, .jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" type="file" class="form-control" id="imagemutil">
+                        <div id="viewImages"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Hinh anh Chi tiet nnnn -->
+    </form>
+</div>
+<div class="box-footer">
+
+</div>
+
+<div class="card-footer small text-muted">@DateTime.Now</div>
+

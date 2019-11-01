@@ -16,6 +16,14 @@ namespace Study.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult Add()
+        {
+            return View();
+        }
+        public ActionResult Edit()
+        {
+            return View();
+        }
 
         [HttpGet]
         public JsonResult listall(int page = 1, int pageSize = 5)
@@ -81,6 +89,7 @@ namespace Study.Areas.Admin.Controllers
             var result = new CategoryDao().getByid(id);
             return Json(result.name, JsonRequestBehavior.AllowGet);
         }
+        //upload signle
         [HttpPost]
         public JsonResult UploadImage(Product model)
         {
@@ -97,6 +106,23 @@ namespace Study.Areas.Admin.Controllers
 
             }
           return Json(url, JsonRequestBehavior.AllowGet);
+        }
+        //upload muti image
+        [HttpPost]
+        public JsonResult UploadImages(Product model)
+        {
+            var file = model.ImageUpload;
+            string url = "";
+            if (file != null)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var extention = Path.GetExtension(file.FileName);
+                var filenamewithoutextension = Path.GetFileNameWithoutExtension(file.FileName);
+                url = "/Data/" + file.FileName;
+                file.SaveAs(Server.MapPath("/Data/" + file.FileName));
+
+            }
+            return Json(url, JsonRequestBehavior.AllowGet);
         }
     }
 }

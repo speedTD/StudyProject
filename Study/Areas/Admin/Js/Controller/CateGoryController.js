@@ -54,6 +54,7 @@ function pagging(totalrow, callback) {
     });
 }
 
+
 function getbyID(EmpID) {
     $.ajax({
         url: "/Admin/Category/GetByID/" + EmpID,

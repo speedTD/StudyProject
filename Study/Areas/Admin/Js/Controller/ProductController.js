@@ -6,6 +6,7 @@
 $(document).ready(function () {
     loadData();
     bindCategory();
+
 });
 
 function loadData() {
@@ -27,15 +28,15 @@ function loadData() {
                 html += '<td>' + item.name + '</td>';
                 html += '<td  class="price">' + item.price + '</td>';
                 html += '<td>' + item.wanarty + '</td>';
-                html += '<td>' + item.Category.name+ '</td>'; //đợi tý cái này sẽ lấy từ table khác
+                html += '<td>' + item.Category.name + '</td>'; //đợi tý cái này sẽ lấy từ table khác
                 html += '<td><a href="#" id="btn-active" onclick="return ChangeStatus(' + item.id + ')">' + status + '</a></td>';
                 html += '<td>' + item.newprice + '</td>';
-                html += '<td>' + Vat+ '</td>';
+                html += '<td>' + Vat + '</td>';
                 html += '<td>' + item.viewcount + '</td>';
+
                 html += '<td><a href="#" onclick="return getbyID(' + item.id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.id + ')">Delete</a></td>';
                 html += '</tr>';
             });
-
             $('.tbody').html(html);
             total();
             pagging(result.total, function () {
@@ -60,6 +61,7 @@ function pagging(totalrow, callback) {
 }
 
 function getbyID(EmpID) {
+   
     $.ajax({
         url: "/Admin/Product/GetByID/" + EmpID,
         typr: "GET",
@@ -79,25 +81,33 @@ function getbyID(EmpID) {
             $('#categoryid').val(result.categoryid);
             $('#detail').val(result.detail);
             $('#status').val(statu);
-            $('#myModal').modal('show');
-            $('#btnUpdate').show();
-            $('#btnAdd').hide();
+     
+        
+          
+
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+ 
     return false;
 }
 
 
 /*Request Insert Product record*/
 function Add() {
+     var res = validate();
+     if (res == false) {
+         return false;
+     }
     //khai báo 1 object lấy dl từ form về
+    UploadImage();
+   
     var obj = {
         name: $('#name').val(),
         despection: $('#despection').val(),
-        image: $('#image').val(),
+        image: imagevar,
         moreImage: $('#moreImage').val(),
         price: $('#price').val(),
         quality: $('#quality').val(),
@@ -108,12 +118,13 @@ function Add() {
         detail: $('#detail').val(),
         status: $('#status').val()
     }
+    console.log(obj);
     if (obj.includevat == 1) {
         obj.includevat = false;
     } else {
         obj.includevat = true;
     }
-    UploadImage();
+   
     $.ajax({
         url: "/Admin/Product/CreateProduct",
         data: JSON.stringify(obj),
@@ -121,16 +132,12 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (Reposne) {
-            //load data   
-            $('#myModal').modal('hide');
-            //ClearForm();
-            loadData();
-            //clear form
+            alert("Them moi thanh cong");
+        //    ClearForm();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
-
     })
 }
 
@@ -145,7 +152,7 @@ function Update() {
         id: $('#idproduct').val(),
         name: $('#name').val(),
         despection: $('#despection').val(),
-        image: $('#image').val(),
+        image: imagevar,
         moreImage: $('#moreImage').val(),
         price: $('#price').val(),
         quality: $('#quality').val(),
@@ -155,7 +162,6 @@ function Update() {
         categoryid: $('#categoryid').val(),
         detail: $('#detail').val(),
         status: $('#status').val()
-
     };
 
     if (obj.status == 1) {
@@ -177,7 +183,7 @@ function Update() {
         success: function (result) {
             // ẨN dialog và load lại data
             // đồng thời clear
-            $('#myModal').modal('hide');         
+            $('#myModal').modal('hide');
             loadData();
         },
         error: function (errormessage) {
@@ -221,18 +227,12 @@ function ChangeStatus(ids) {
                 }
             }
         });
-
 }
+var imagevar;
 function UploadImage() {
-
-    var files = $("#myFile").get(0).files;
-   
-    //var myID = 3; //uncomment this to make sure the ajax URL works
     var data = new FormData;
-               
-    data.append("ImageUpload", files[0]);
-
- 
+    imagevar = "/Data/" + ImageSigle.name;
+    data.append("ImageUpload", ImageSigle);
     $.ajax({
         type: "POST",
         url: "/Admin/Product/UploadImage",
@@ -240,11 +240,120 @@ function UploadImage() {
         processData: false,
         data: data,
         success: function (urll) {
-            $("#image").val(urll);
+            
         }
-       
     });
-          
+}
+
+var ImageSigle;
+$("#imagesigle").change(function (e) {
+    var fileInput = document.getElementById('imagesigle');
+    var viewImages = document.getElementById("fileDisplayArea");
+    var imageType = /image.*/;
+    var reader = new FileReader();
+    var file = fileInput.files[0];
+    ImageSigle = file;
+    reader.onload = function (event) {
+   
+        var image = new Image();
+        image.src = event.target.result;
+        image.height = 200;
+        image.width = 300;
+        fileDisplayArea.innerHTML = "";
+        fileDisplayArea.appendChild(image);
+    }
+    reader.readAsDataURL(file);
+});
+var listImage = [];
+//event mutil file 
+$("#imagemutil").change(function (e) {
+    // listImage = [];
+    chindex = 0;
+    var myfiles = document.getElementById("imagemutil").files;
+    var viewImages = document.getElementById("viewImages");
+    var imageType = /image.*/;
+    var html = '';
+    var temp = listImage.length;
+    debugger;
+
+    if (myfiles.length > 0) {
+        for (i = 0; i < myfiles.length; i++) {
+            //add
+            listImage.push(myfiles.item(i));
+
+            if (myfiles[i].type.match(imageType)) {   //image file.
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    //delete
+                    listImage.push(myfiles.item(temp));
+                    var tagA = document.createElement("a");
+                    tagA.href = event.target.result;
+                    var image = new Image();
+                    image.src = event.target.result;
+                    //add new
+                    image.className = "listImage"
+                    image.height = 100;
+                    image.width = 200;
+                    image.id = temp;
+                    tagA.appendChild(image);
+                    var divContainer = document.createElement("div");
+                    divContainer.className = "DivImage";
+                    divContainer.id = "DivImage" + temp;
+                    divContainer.innerHTML += '<div id="myList" class="ImageContainer" style="position:relative;text-align:center;">'
+                                               + '<div style="position:absolute;top:8px;right:16px;font-size:18px">'
+                                               + '<a href="#" id="deleteimg" onclick="removeIndexImage(' + temp + ');" class="btn btn-danger"> Xóa </a>';
+                    divContainer.appendChild(tagA);
+                    viewImages.appendChild(divContainer);
+                    temp++;
+                }
+                reader.readAsDataURL(myfiles[i]);
+            }
+            else {
+                var extention = myfiles[i].name.substring(myfiles[i].name.lastIndexOf(".") + 1).toLowerCase();
+                if (extention == "pdf") {
+                    var tagLabel = document.createElement("lable");
+                    tagLabel.innerHTML = myfiles[i].name;
+                    tagLabel.style.fontWeight = "bold";
+                    //viewImages.appendChild(divContainer);
+                    viewImages.appendChild(tagLabel);
+                }
+            }
+        }
+
+    }
+    console.log(listImage);
+});
+
+function removeIndexImage(index) {
+    //delete List
+    listImage[index] = "";
+    console.log(listImage);
+    var x = document.getElementById("DivImage" + index);
+    x.innerHTML = "";
+}
+
+function UploadMutilImage() {
+
+    var files = $("#myFiles").get(0).files;
+
+    //var myID = 3; //uncomment this to make sure the ajax URL works
+    var data = new FormData;
+
+    data.append("ImageUpload", files[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "/Admin/Product/UploadImages",
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function (urll) {
+            $("#image").val(urll);
+
+        }
+
+    });
+
 }
 
 
@@ -268,11 +377,11 @@ function bindCategoryByid(id) {
 
         $.ajax({
             type: "GET",
-            url: "/Admin/Product/BindNameByIdCateGoryId/"+id,
+            url: "/Admin/Product/BindNameByIdCateGoryId/" + id,
             dataType: "json",
             async: false,
             contentType: "application/json;charset=UTF-8",
-            success: function (v) {   
+            success: function (v) {
                 deferred.resolve(v);
             }
 
@@ -280,8 +389,8 @@ function bindCategoryByid(id) {
         return deferred.promise();
     });
 
-    
-       
+
+
 }
 function total() {
     var priceCells = document.getElementsByClassName("price"); //returns a list with all the elements that have class 'priceCell'
@@ -296,8 +405,26 @@ function total() {
     total = total.toFixed(2); //give 2 decimal points to total - prices are, e.g 59.80 not 59.8
     console.log(total);
 }
-
-
+function validate() {
+    var isValid = true;
+    if ($('#name').val().trim() == "") {
+        $('#name').css('border-color', 'Red');
+        isValid = false;
+    }
+    if ($('#status').val().trim() ==null ) {
+        $('#status').css('border-color', 'Red');
+        isValid = false;
+    }
+    if ($('#categoryid').val().trim() == "0") {
+        $('#categoryid').css('border-color', 'Red');
+        isValid = false;
+    }
     
+
+
+    return isValid;
+}
+
+
 
 

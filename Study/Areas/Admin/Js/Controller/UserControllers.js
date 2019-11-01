@@ -49,8 +49,7 @@ function loadData() {
 }
 //paging 
 
-function pagging(totalrow, callback) {
-   
+function pagging(totalrow, callback) {   
     var totalpage = Math.ceil(totalrow / config.PageSize);
     $('#pagination-user').twbsPagination({
         totalPages: totalpage,
@@ -233,6 +232,5 @@ function validate() {
         $('#pass').css('border-color', 'Red');
         isValid = false;
     }
-
     return isValid;
 }

@@ -12,147 +12,17 @@
     
 }
 <!-- DataTables Example -->
-<div class="card mb-3">
+
     <div class="card-header">
         <div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm mới</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Xuất Excel</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Nhập Excel</button>
+                        <a href="/Admin/Product/Add" class="btn btn-info" role="button">Thêm mới</a>
+                        <a href="/Admin/Product/Add" class="btn btn-info" role="button">Xuất báo cáo</a>
                     </div>
                 </div>
-            </div>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" width="75%">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="myModal">Thêm Mới Người dùng</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <label for="name" class="col-form-label">Tên</label>
-                                                <input type="text" class="form-control" id="name">
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="despection" class="col-form-label">Mô Tả Ngắn</label>
-                                                <input type="text" class="form-control" id="despection">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                           
-                               
-                                
-                                <div class="form-group">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <label for="price" class="col-form-label">Giá</label>
-                                                <input type="text" class="form-control" id="price">
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="quality" class="col-form-label">Chất lượng</label>
-                                                <input type="text" class="form-control" id="quality">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <label for="newprice" class="col-form-label">Giá Mới</label>
-                                                <input type="text" class="form-control" id="newprice">
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="vat" class="col-form-label">Áp Dụng VAT</label>
-                                                <select id="vat" name="vat" class="browser-default custom-select">
-                                                    <option selected>Lựa chọn một mục</option>
-                                                    <option value="1">Không</option>
-                                                    <option value="0">Có</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <label for="metatitle" class="col-form-label">Tiêu đề </label>
-                                                <input type="text" class="form-control" id="metatitle">
-                                            </div>
-                                            <div class="col-sm">
-                                                <label for="categoryid" class="col-form-label">Thể Loại</label>
-                                                <select id="categoryid" name="categoryid" class="browser-default custom-select">
-                                                    <option value="0" selected>Lựa chọn một mục</option>
-                     
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="detail" class="col-form-label">Mô Tả</label>
-                                    <input type="text" class="form-control" id="detail">
-                                </div>
-                                <!--droplist-->
-                                <div class="form-group">
-                                    <label for="status" class="col-form-label">Trạng thái</label>
-                                    <select id="status" name="status" class="browser-default custom-select">
-                                        <option selected>Chọn kích hoạt</option>
-                                        <option value="1">Khóa</option>
-                                        <option value="0">Hoạt động</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="form-group">
-                            <div class="container">
-                                <div class="row">
-                                     <!--Hinh anh dai dien -->
-                                    <div class="col-md-6">
-                                        <label for="image" class="col-form-label">Hình ảnh</label>
-                                        <input type="text" class="form-control" id="image">
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="myFile">
-                                                <label class="custom-file-label" for="myFile">Choose file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <button   onclick="UploadImage()" class="btn btn-danger" type="button">Upload</button>
-                                            </div>
-                                        </div>
-                                    </div>                                
-                                        <!--Hinh anh Chi tiet nnnn -->
-                                        <div class="col-md -6">
-                                            <label for="moreImage" class="col-form-label">Thêm Hình</label>
-                                            <input type="text" class="form-control" id="moreImage">
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <!--button add or update -->
-                            <input type="hidden" name="idproduct" id="idproduct" />
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ClearForm()">Close</button>
-                            <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Cập nhật</button>
-                            <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Thêm</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </div>         
     </div>
     <div class="card-body">
         <div class="table-responsive">
