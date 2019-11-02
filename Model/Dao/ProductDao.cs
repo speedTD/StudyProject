@@ -90,9 +90,17 @@ namespace Model.Dao
             db.SaveChanges();
             return !cate.status;
         }
-        public Product getByid(long id)
+        public ReturnProduct getByid(long id)
         {
-            return db.Products.SingleOrDefault(x => x.id == id);
+            ReturnProduct pro = new ReturnProduct();
+            pro.product = db.Products.SingleOrDefault(x => x.id == id);
+            pro.ListImgbyProductid = getAllByproductid(id);
+            return pro;
+        }
+        public List<IMProductDetail> getAllByproductid(long id)
+        {
+            //return db.Categories.Where(x=>x.status==true).ToList();
+            return db.IMProductDetails.Where(x=>x.productid==id).ToList();
         }
     }
 }

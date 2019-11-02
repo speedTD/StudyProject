@@ -16,36 +16,52 @@ function FillDataEdit(id) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            var statu = result.status ? 0 : 1
-            $('#idproduct').val(result.id);
-            $('#name').val(result.name);
-            $('#despection').val(result.despection);
-            $('#image').val(result.image);
-            $('#moreImage').val(result.moreImage);
-            $('#price').val(result.price);
-            $('#quality').val(result.quality);
-            $('#vat').val(result.includevat ? 0 : 1);
-            $('#metatitle').val(result.metatitle);
-            $('#categoryid').val(result.categoryid);
-            $('#detail').val(result.detail);
+            var statu = result.product.status ? 0 : 1
+            $('#idproduct').val(result.product.id);
+            $('#name').val(result.product.name);
+            $('#despection').val(result.product.despection);
+            $('#image').val(result.product.image);
+            $('#moreImage').val(result.product.moreImage);
+            $('#price').val(result.product.price);
+            $('#quality').val(result.product.quality);
+            $('#vat').val(result.product.includevat ? 0 : 1);
+            $('#metatitle').val(result.product.metatitle);
+            $('#categoryid').val(result.product.categoryid);
+            $('#detail').val(result.product.detail);
             $('#status').val(statu);
             //hinh anh dai dien
-            var viewImages = document.getElementById("fileDisplayArea");
+            var viewImage = document.getElementById("fileDisplayArea");
             var html="";
             html += '<div class="ImageContainer" style="position:relative;text-align:center;">';
             html += '<div style="position:absolute;top:220px;right:16px;font-size:18px">';
             html += '<a href="#" onclick="removeImage()" style=" margin:10px; opacity: 0.7;" class="btn btn-warning"><img style=" width:25px;height:30px;" src="/Assets/Admin/image/recycle_bin.png"/></a>';
             html += '</div>';
-            html += '<a href="' + result.image + '">';
-            html += '<img src="' + result.image + '" width="530" height="300"/>';
+            html += '<a href="' + result.product.image + '">';
+            html += '<img src="' + result.product.image + '" width="530" height="300"/>';
             html += '</a>';
             html += '</div>';
-            viewImages.innerHTML = html;
-          /* viewImages.innerHTML = '<img src="' + result.image + '" class="img-fluid img-thumbnail" >'
-            + '<div style="position:absolute;top:8px;right:16px;font-size:18px">'
-            + '<a href="#" id="deleteimg" onclick="removeIndexImage(' + 0 + ');" class="btn btn-danger"> Xóa </a>';
-            //danh sach hinh anh */
-            ImageSigle = result.image;
+            viewImage.innerHTML = html;
+            ImageSigle = result.product.image;
+            //result List Image From ProductDetail
+
+            console.log(result.ListImgbyProductid);
+            var viewImages = document.getElementById("viewImages");
+            for (var i = 0; i <result.ListImgbyProductid.length; i++) {
+
+               // fileDisplayArea.innerHTML = "";
+                var html = "";
+                html += '<div  id ="imagePreview" class="ImageContainer" style="position:relative;text-align:center;">';
+                html += '<div style="position:absolute;top:245px;right:16px;font-size:18px">';
+                html += '<a href="#" onclick="removeImage()" style=" margin:10px; opacity: 0.7;" class="btn btn-warning"><img style=" width:25px;height:30px;" src="/Assets/Admin/image/recycle_bin.png"/></a>';
+                html += '</div>';
+                html += '<a href="' + result.ListImgbyProductid[i].content + '">';
+                html += '<img src="' + result.ListImgbyProductid[i].content + '"  width="530" height="320"/>';
+                html += '</a>';
+                html += '</div>';
+                viewImages.innerHTML += html;
+            }
+
+
         },
         error: function (errormessage) {
             console.log(errormessage.responseText);

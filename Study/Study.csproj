@@ -228,7 +228,7 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Js\Controller\CateGoryController.js" />
     <Content Include="Areas\Admin\Js\Controller\LoginController.js" />
-    <Content Include="Areas\Admin\Js\Controller\ProductController.js" />
+    <Clean Include="Areas\Admin\Js\Controller\ProductController.js" />
     <Content Include="Areas\Admin\Js\Controller\ProductEditController.js" />
     <Content Include="Areas\Admin\Js\Controller\UserControllers.js" />
     <Content Include="Areas\Admin\Js\Plugin\AlertBoxCustom.js" />
@@ -925,7 +925,7 @@
     <Folder Include="Assets\Admin\scss\" />
     <Folder Include="Assets\Admin\vendor\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
+    <Folder Include="Data\ListProductImage\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

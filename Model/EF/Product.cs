@@ -68,4 +68,11 @@ namespace Model.EF
         [NotMapped]
         public HttpPostedFileBase ImageUpload { get; set; }
     }
+    public partial class ReturnProduct
+    {
+        public string code { set; get; }
+        public Product product { set; get; }
+        public List<IMProductDetail> ListImgbyProductid { set; get; }
+
+    }
 }

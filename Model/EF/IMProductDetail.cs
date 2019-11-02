@@ -9,13 +9,11 @@ namespace Model.EF
     [Table("IMProductDetail")]
     public partial class IMProductDetail
     {
-     
-        [Column(Order = 0)]
+
+   
         public long id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    
         public long productid { get; set; }
 
         [StringLength(200)]
@@ -23,5 +21,12 @@ namespace Model.EF
 
         [StringLength(500)]
         public string content { get; set; }
+    }
+    public partial class ReturnIMProductDetail
+    {
+        public string code { set; get; }
+        public IMProductDetail addIMProductDetail { set; get; }
+        public List<IMProductDetail> lstIMProductDetail;
+
     }
 }

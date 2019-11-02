@@ -60,19 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content\About.cs" />
-    <Compile Include="Content\Category.cs" />
-    <Compile Include="Content\Contact.cs" />
-    <Compile Include="Content\Content.cs" />
-    <Compile Include="Content\ContentTag.cs" />
-    <Compile Include="Content\Menu.cs" />
-    <Compile Include="Content\MenuType.cs" />
-    <Compile Include="Content\Product.cs" />
-    <Compile Include="Content\ProductCategory.cs" />
-    <Compile Include="Content\shop1.cs" />
-    <Compile Include="Content\Slide.cs" />
-    <Compile Include="Content\Tag.cs" />
-    <Compile Include="Content\User.cs" />
     <Compile Include="Dao\CategoryDao.cs" />
     <Compile Include="Dao\ContentDao.cs" />
     <Compile Include="Dao\IMProductDao.cs" />
@@ -96,15 +83,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\PagedList.css" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

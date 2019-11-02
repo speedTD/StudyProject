@@ -107,22 +107,38 @@ namespace Study.Areas.Admin.Controllers
             }
           return Json(url, JsonRequestBehavior.AllowGet);
         }
+    
         //upload muti image
         [HttpPost]
-        public JsonResult UploadImages(Product model)
+        public JsonResult UploadImages()
         {
-            var file = model.ImageUpload;
-            string url = "";
-            if (file != null)
+            IMProductDao dao = new IMProductDao();
+            long x=99;
+            IMProductDetail IMProductDetail = Newtonsoft.Json.JsonConvert.DeserializeObject<IMProductDetail>(Request.Form[0]);
+            HttpFileCollectionBase httpFiles = Request.Files;
+            ReturnIMProductDetail returnFPBCheckingDetail = new ReturnIMProductDetail();
+            returnFPBCheckingDetail.code = "00";
+          
+            if (httpFiles.Count > 0)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var extention = Path.GetExtension(file.FileName);
-                var filenamewithoutextension = Path.GetFileNameWithoutExtension(file.FileName);
-                url = "/Data/" + file.FileName;
-                file.SaveAs(Server.MapPath("/Data/" + file.FileName));
+                string[] request = new String[httpFiles.Count];
+                string path = "/Data/ListProductImage/";
+                for (int i = 0; i < httpFiles.Count; i++)
+                {
+                    string fileName = (string)(Path.GetFileName(httpFiles[i].FileName)).Split('.')[0];
+                    string extension = Path.GetExtension(httpFiles[i].FileName);
 
+                    fileName = fileName + DateTime.Now.ToString("yyMMddHHmmss") + extension;
+                    request[i] = path + fileName;
+                    fileName = Path.Combine(Server.MapPath(path), fileName);
+                    httpFiles[i].SaveAs(fileName);
+                    IMProductDetail.content = request[i];
+                    
+                    x = dao.Insert(IMProductDetail);
+                }
+                //FPBCheckingDetail.Images = JsonConvert.SerializeObject(request);
             }
-            return Json(url, JsonRequestBehavior.AllowGet);
+            return Json(x, JsonRequestBehavior.AllowGet);
         }
     }
 }

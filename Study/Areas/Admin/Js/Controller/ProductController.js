@@ -33,7 +33,6 @@ function loadData() {
                 html += '<td>' + item.newprice + '</td>';
                 html += '<td>' + Vat + '</td>';
                 html += '<td>' + item.viewcount + '</td>';
-
                 html += '<td><a href="#" onclick="return getbyID(' + item.id + ')">view</a> | <a href="#" onclick="Delele(' + item.id + ')">Delete</a>|<a href="#"  onclick="this.href =\'/Admin/Product/Edit?id=' + item.id + '\'">update</a></td>';
                 html += '</tr>';
             });
@@ -61,7 +60,7 @@ function pagging(totalrow, callback) {
 }
 
 function getbyID(EmpID) {
-   
+
     $.ajax({
         url: "/Admin/Product/GetByID/" + EmpID,
         typr: "GET",
@@ -86,18 +85,18 @@ function getbyID(EmpID) {
             alert(errormessage.responseText);
         }
     });
- 
+
     return false;
 }
 /*Request Insert Product record*/
 function Add() {
-     var res = validate();
-     if (res == false) {
-         return false;
-     }
+    var res = validate();
+    if (res == false) {
+        return false;
+    }
     //khai báo 1 object lấy dl từ form về
     UploadImage();
-   
+
     var obj = {
         name: $('#name').val(),
         despection: $('#despection').val(),
@@ -118,7 +117,7 @@ function Add() {
     } else {
         obj.includevat = true;
     }
-   
+
     $.ajax({
         url: "/Admin/Product/CreateProduct",
         data: JSON.stringify(obj),
@@ -126,8 +125,19 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (Reposne) {
+            var dataListImage = new FormData();
+            for (var i = 0; i < listImage.length; i++) {
+                dataListImage.append("imagemutil", listImage[i]);
+            }
+            var FPBCheckingDetailObj = {
+                id: 0,
+                name: "huhu",
+                productid: Reposne,
+            }
+            dataListImage.append('FPBCheckingDetailObj',JSON.stringify(FPBCheckingDetailObj));
+            UploadMutilImage(dataListImage);
             alert("Them moi thanh cong");
-        //    ClearForm();
+            //    ClearForm();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -233,11 +243,10 @@ function UploadImage() {
         processData: false,
         data: data,
         success: function (urll) {
-            
+
         }
     });
 }
-
 var ImageSigle;
 $("#imagesigle").change(function (e) {
     var fileInput = document.getElementById('imagesigle');
@@ -247,7 +256,7 @@ $("#imagesigle").change(function (e) {
     var file = fileInput.files[0];
     ImageSigle = file;
     reader.onload = function (event) {
-   
+
         var image = new Image();
         image.src = event.target.result;
         image.height = 200;
@@ -278,7 +287,7 @@ $("#imagemutil").change(function (e) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     //delete
-                    listImage.push(myfiles.item(temp));
+                   
                     var tagA = document.createElement("a");
                     tagA.href = event.target.result;
                     var image = new Image();
@@ -325,28 +334,22 @@ function removeIndexImage(index) {
     x.innerHTML = "";
 }
 
-function UploadMutilImage() {
-
-    var files = $("#myFiles").get(0).files;
-
-    //var myID = 3; //uncomment this to make sure the ajax URL works
-    var data = new FormData;
-
-    data.append("ImageUpload", files[0]);
-
+function UploadMutilImage(data) {
     $.ajax({
+        // list  listDelete
+        url: "/Admin/Product/UploadImages/",
+        data: data,
         type: "POST",
-        url: "/Admin/Product/UploadImages",
         contentType: false,
         processData: false,
-        data: data,
-        success: function (urll) {
-            $("#image").val(urll);
-
+        dataType: "json",
+        success: function (result) {   
+            alert('Xong:' + result);
+        },
+        error: function (errormessage) {
+            alert('Lỗi/Error:' + errormessage.responseText);
         }
-
     });
-
 }
 
 
@@ -404,7 +407,7 @@ function validate() {
         $('#name').css('border-color', 'Red');
         isValid = false;
     }
-    if ($('#status').val().trim() ==null ) {
+    if ($('#status').val().trim() == null) {
         $('#status').css('border-color', 'Red');
         isValid = false;
     }
@@ -412,7 +415,7 @@ function validate() {
         $('#categoryid').css('border-color', 'Red');
         isValid = false;
     }
-    
+
 
 
     return isValid;
