@@ -43,16 +43,13 @@ function FillDataEdit(id) {
             viewImage.innerHTML = html;
             ImageSigle = result.product.image;
             //result List Image From ProductDetail
-
             console.log(result.ListImgbyProductid);
             var viewImages = document.getElementById("viewImages");
             for (var i = 0; i <result.ListImgbyProductid.length; i++) {
-
-               // fileDisplayArea.innerHTML = "";
                 var html = "";
-                html += '<div  id ="imagePreview" class="ImageContainer" style="position:relative;text-align:center;">';
+                html += '<div  id ="imagePreview'+i+'" class="ImageContainer" style="position:relative;text-align:center;">';
                 html += '<div style="position:absolute;top:245px;right:16px;font-size:18px">';
-                html += '<a href="#" onclick="removeImage()" style=" margin:10px; opacity: 0.7;" class="btn btn-warning"><img style=" width:25px;height:30px;" src="/Assets/Admin/image/recycle_bin.png"/></a>';
+                html += '<a href="#" onclick="removeImages('+i+')" style=" margin:10px; opacity: 0.7;" class="btn btn-warning"><img style=" width:25px;height:30px;" src="/Assets/Admin/image/recycle_bin.png"/></a>';
                 html += '</div>';
                 html += '<a href="' + result.ListImgbyProductid[i].content + '">';
                 html += '<img src="' + result.ListImgbyProductid[i].content + '"  width="530" height="320"/>';
@@ -60,8 +57,6 @@ function FillDataEdit(id) {
                 html += '</div>';
                 viewImages.innerHTML += html;
             }
-
-
         },
         error: function (errormessage) {
             console.log(errormessage.responseText);
@@ -111,8 +106,16 @@ $("#imagesigle").change(function (e) {
     reader.readAsDataURL(file);
     console.log(ImageSigle);
 });
+//remove image signle
 function removeImage() {
     var x = document.getElementById("fileDisplayArea");
+    x.innerHTML = "";
+}
+//remove image signle
+function removeImages(id) {
+    //imagePreview
+    //fuction delete Request delete
+    var x = document.getElementById("imagePreview"+id);
     x.innerHTML = "";
 }
 //Update  
@@ -140,7 +143,6 @@ function Update() {
         detail: $('#detail').val(),
         status: $('#status').val()
     };
-
     if (obj.status == 1) {
         obj.status = false;
     } else {
