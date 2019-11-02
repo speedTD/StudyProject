@@ -34,7 +34,7 @@ function loadData() {
                 html += '<td>' + Vat + '</td>';
                 html += '<td>' + item.viewcount + '</td>';
 
-                html += '<td><a href="#" onclick="return getbyID(' + item.id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.id + ')">Delete</a></td>';
+                html += '<td><a href="#" onclick="return getbyID(' + item.id + ')">view</a> | <a href="#" onclick="Delele(' + item.id + ')">Delete</a>|<a href="#"  onclick="this.href =\'/Admin/Product/Edit?id=' + item.id + '\'">update</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -81,10 +81,6 @@ function getbyID(EmpID) {
             $('#categoryid').val(result.categoryid);
             $('#detail').val(result.detail);
             $('#status').val(statu);
-     
-        
-          
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -93,8 +89,6 @@ function getbyID(EmpID) {
  
     return false;
 }
-
-
 /*Request Insert Product record*/
 function Add() {
      var res = validate();
@@ -140,7 +134,6 @@ function Add() {
         }
     })
 }
-
 //Update  
 function Update() {
     //validate

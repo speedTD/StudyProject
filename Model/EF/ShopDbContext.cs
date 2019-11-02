@@ -23,7 +23,7 @@ namespace Model.EF
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
-
+        public virtual DbSet<IMProductDetail> IMProductDetails { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -69,6 +69,14 @@ namespace Model.EF
             modelBuilder.Entity<Product>()
                 .Property(e => e.newprice)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<IMProductDetail>()
+            .Property(e => e.name)
+            .IsUnicode(false);
+
+            modelBuilder.Entity<IMProductDetail>()
+                .Property(e => e.content)
+                .IsUnicode(false);
         }
     }
 }

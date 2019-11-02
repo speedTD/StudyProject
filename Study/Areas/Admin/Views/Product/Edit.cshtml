@@ -6,9 +6,7 @@
     Quản Lý Sản Phẩm / Chỉnh Sửa.
 }
 @section jsfooter{
-    <script src="~/Areas/Admin/Js/Plugin/jquery.twbsPagination.min.js"></script>
-    <script src="~/Areas/Admin/Js/Controller/ProductController.js"></script>
-
+<script src="~/Areas/Admin/Js/Controller/ProductEditController.js"></script>
 }
 <div class="box-header">
     <div class="container">
@@ -17,10 +15,12 @@
                 <!--button add or update -->
                 <input type="hidden" name="idproduct" id="idproduct" />
                 <a type="button" id="btnclear" href="/Admin/Product/Index" class="btn btn-info" onclick="ClearForm()">Danh Sách</a>
+               
+            </div>
+            <div class="col-sm-2">
                 <a type="button" href="#" class="btn btn-info" id="btnUpdate" onclick="return Update();">Cập nhật</a>
             </div>
-
-        </div>
+            </div>
     </div>
 </div>
 <div class="box-body">

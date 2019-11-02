@@ -75,6 +75,7 @@
     <Compile Include="Content\User.cs" />
     <Compile Include="Dao\CategoryDao.cs" />
     <Compile Include="Dao\ContentDao.cs" />
+    <Compile Include="Dao\IMProductDao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\TagDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="EF\Contact.cs" />
     <Compile Include="EF\Content.cs" />
     <Compile Include="EF\ContentTag.cs" />
+    <Compile Include="EF\IMProductDetail.cs" />
     <Compile Include="EF\Menu.cs" />
     <Compile Include="EF\MenuType.cs" />
     <Compile Include="EF\ShopDbContext.cs" />
