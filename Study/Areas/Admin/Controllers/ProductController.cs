@@ -14,6 +14,7 @@ namespace Study.Areas.Admin.Controllers
         // GET: Admin/Product
         public ActionResult Index()
         {
+            var x = new ProductDao().getbysp();
             return View();
         }
         public ActionResult Add()
@@ -83,6 +84,8 @@ namespace Study.Areas.Admin.Controllers
             var result = new CategoryDao().getAll();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
         [HttpGet]
         public JsonResult BindNameByIdCateGoryId(long id)
         {
@@ -140,5 +143,12 @@ namespace Study.Areas.Admin.Controllers
             }
             return Json(x, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetCatByname(string searchTerm)
+        {
+            var result = new CategoryDao().lstgetByName(searchTerm);
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
     }
+   
 }

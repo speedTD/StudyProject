@@ -6,8 +6,10 @@
 $(document).ready(function () {
     loadData();
     bindCategory();
-
+    bindMutiSelect(); 
+ 
 });
+
 
 function loadData() {
     $.ajax({
@@ -366,6 +368,27 @@ function bindCategory() {
         }
 
     });
+}
+function bindMutiSelect() {
+    $(".sampleselect").select2({
+            placeholder: "Counrty",
+            theme: "classic",
+            ajax: {
+                type: "GET",
+                url: "/Admin/Product/GetCatByname",
+                dataType: "json",
+                data: function (params) {
+                    return {
+                        searchTerm: params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
 }
 function bindCategoryByid(id) {
     var deferred = $.Deferred();

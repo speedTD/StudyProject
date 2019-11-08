@@ -74,11 +74,7 @@ namespace Model.Dao
             }
 
         }
-        public List<Product> getAll()
-        {
-            //return db.Categories.Where(x=>x.status==true).ToList();
-            return db.Products.ToList();
-        }
+       
         public IEnumerable<Product> getAllByPageSize(int page, int pageSize)
         {
             return db.Products.OrderByDescending(x => x.name).ToPagedList(page, pageSize);
@@ -102,5 +98,26 @@ namespace Model.Dao
             //return db.Categories.Where(x=>x.status==true).ToList();
             return db.IMProductDetails.Where(x=>x.productid==id).ToList();
         }
+    
+        public List<Product> getbysp()
+        {
+            var product = db.Database.SqlQuery<Product>("spGetAllProduct");
+            var list= product.ToList();
+            for(int i = 0; i < list.Count; i++)
+            {
+               var enity= new CategoryDao().getByid(list[i].categoryid);
+               list[i].Category = enity;
+            }
+            return list;
+        }
+        public List<Product> getAll()
+        {            
+            return db.Products.ToList();
+        }
     }
 }
+/*
+List<SqlParameter> param=new List<SqlParameter>();
+param.add(new SqlParameter("Thuoctinh",giatri));
+var product = db.Database.SqlQuery<Product>("spGetAllProduct @Thuoctinh,....., ",param.toArray());
+*/

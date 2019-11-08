@@ -87,6 +87,11 @@ namespace Model.Dao
             return db.Categories.SingleOrDefault(x => x.id == id);
         }
 
+        public List<Category> lstgetByName(String name)
+        {
+            return db.Categories.Where(x => x.name.Contains(name)).ToList();
+        }
+
 
     }
 }

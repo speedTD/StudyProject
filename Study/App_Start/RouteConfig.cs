@@ -11,15 +11,15 @@ namespace Study
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+           
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Default",
-                "{controller}/{action}/{id}",
-                new { controller = "Stuty.Home", action = "Index", id = UrlParameter.Optional }
-                ,new[] { "Study.Controllers" }
-
-            );
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "Study.Areas.Admin.Controllers" });
         }
     }
 }

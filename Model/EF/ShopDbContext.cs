@@ -11,7 +11,6 @@ namespace Model.EF
             : base("name=Shop")
         {
         }
-
         public virtual DbSet<About> Abouts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
@@ -28,6 +27,8 @@ namespace Model.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+
             modelBuilder.Entity<Category>()
                 .Property(e => e.image)
                 .IsUnicode(false);
@@ -60,7 +61,7 @@ namespace Model.EF
                 .Property(e => e.price)
                 .HasPrecision(18, 0);
 
-          
+
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.code)
