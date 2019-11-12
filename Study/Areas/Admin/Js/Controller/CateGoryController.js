@@ -162,8 +162,6 @@ function Delele(id) {
                     //show fail
                 }
             }
-
-
         })
     }
 }

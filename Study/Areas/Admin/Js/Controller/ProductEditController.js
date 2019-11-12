@@ -184,11 +184,12 @@ function UploadImage() {
         }
     });
 }
+
 function DeleleImage(ID) {
     var ans = confirm("Are you sure you want to delete this Record?");
     if (ans) {
         $.ajax({
-            url: "/Admin/Product/DeleteMutiImage/" + ID,
+            url: "/Admin/Product/DeleteMutiImage/"+ ID,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",

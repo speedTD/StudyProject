@@ -147,7 +147,12 @@ namespace Study.Areas.Admin.Controllers
         public JsonResult GetCatByname(string searchTerm)
         {
             var result = new CategoryDao().lstgetByName(searchTerm);
-            return Json(result,JsonRequestBehavior.AllowGet);
+            var ResultItem = result.Select(x => new
+            {
+                id = x.id,
+                text=x.name
+            });
+            return Json(ResultItem, JsonRequestBehavior.AllowGet);
         }
     }
    
